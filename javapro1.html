@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html>
+    <title>
+        To-Do
+    </title>
+  
+    <body>
+    <link rel="stylesheet"href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
+    <link rel="stylesheet" href="javapro1.css">
+    <div class="container">
+
+        <h1>To-Do List</h1>
+        <input type="text" id="input" placeholder="Add a new task">
+        <button id="add" onclick="add()">Add Task</button>
+        <ul id="list-container">
+
+            <li> HELLO!
+                <button onclick="deleteItem(event)">Delete</button>
+            </li>
+        </ul>
+    </div>
+    
+
+
+
+    <script>
+
+        var ul =  document.getElementById("list-container")
+        var input = document.getElementById("input")
+
+        function add()
+        {
+            var listitem = document.createElement("li")
+            listitem.innerHTML=input.value + "<button onclick = 'deleteItem(event)'> Delete</button>"
+            ul.append(listitem)
+        }
+
+        function deleteItem(event)
+        {
+            event.target.parentElement.remove()
+        }
+        </script>
+    </body>
+       
+</html>
+

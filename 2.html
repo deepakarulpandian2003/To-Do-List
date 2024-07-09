@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Transaction Balance Calculator</title>
+    <style>
+        body {
+           
+            font-family: 'Times New Roman', Times, serif;
+            color: rgb(8, 86, 154);
+            margin: 20px;
+            background-image: url('bg3.jpg');
+            font-size: large;
+            
+    background-size: cover; /* Ensures the image covers the entire container */
+    background-repeat: no-repeat; /* Prevents the image from repeating */
+    background-position: center; /* Centers the image */
+    width: 100vw; /* Full viewport width */
+    height: 100vh;
+        }
+        input, textarea{
+  width: 200px; 
+  border: none;
+  border-radius: 20px;
+  outline: none;
+  padding: 5px;
+  font-family: 'Sniglet', cursive;
+  font-size: 1em;
+  color: #000000;
+  background-color: rgb(5, 167, 255);
+ 
+  -webkit-box-sizing:border-box;
+  -moz-box-sizing:border-box;
+  box-sizing:border-box;
+  
+}
+        button {
+            width: 100px; 
+  border: none;
+  border-radius: 20px;
+  outline: none;
+  padding: 5px;
+  font-family: 'Sniglet', cursive;
+  font-size: small;
+  color: #000000;
+  background-color: rgb(5, 167, 255);
+ 
+  -webkit-box-sizing:border-box;
+  -moz-box-sizing:border-box;
+  box-sizing:border-box;
+           
+            
+        }
+           
+    </style>
+</head>
+<body>
+    <h1>Transaction Balance Calculator</h1>
+    <label for="amount">Enter amount:</label>
+    <input type="number" id="amount" placeholder="Enter the amount ">
+    <br>
+    <label for="type">Transaction type:</label>
+    <select id="type">
+        <option value="deposit">Deposit</option>
+        <option value="withdrawal">Withdrawal</option>
+    </select>
+    <br>
+    <button onclick="calculateBalance()">Fetch Balance</button>
+    <h2 id="result">Available Balance: 0</h2>
+    <button onclick="logTransactions()">Log Transactions</button>
+    <h2 id="res">Transaction History: </h2>
+
+    <script>
+        let transactions = [];
+        let balance = 0;
+
+        function calculateBalance() {
+            const amount = parseFloat(document.getElementById('amount').value);
+            const type = document.getElementById('type').value;
+
+            if (isNaN(amount) || amount <= 0) {
+                alert('Please enter a valid amount.');
+                return;
+            }
+
+            if (type === 'deposit') {
+                balance += amount;
+                transactions.push({ type: 'deposit', amount: amount });
+            } else if (type === 'withdrawal') {
+                if (balance < amount) {
+                    alert('Invalid balance');
+                    return;
+                }
+                balance -= amount;
+                transactions.push({ type: 'withdrawal', amount: amount });
+            }
+
+            document.getElementById('result').textContent = 'Total Balance: ' + balance;
+            document.getElementById('amount').value = '';
+        }
+
+        function logTransactions() {
+            let transactionHistory="Transactions:  ";
+            for(let i=0;i<transactions.length;i++){
+                transactionHistory+=`${transactions[i].type}:  ${transactions[i].amount}`
+            }
+            console.log(transactions);
+            document.getElementById('res').textContent = transactionHistory;
+        }
+    </script>
+</body>
+</html>
